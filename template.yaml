@@ -17,7 +17,6 @@ Globals:
     MemorySize: 128
     Architectures:
       - x86_64
-
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
@@ -25,18 +24,23 @@ Resources:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
   # This is a Lambda function config associated with the source code: helloWorld.mjs
-  helloWorldFunction:
+  AddEmailToMailingListFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: hello-world
-      Handler: src/handlers/helloWorld.helloWorldHandler
-      Description: A simple example includes a HTTP get method to return a greeting based on a path param.
+      CodeUri: src/handlers
+      Handler: AirtableHandlers.addEmailToMailingList
+      Description: Adds an email address to an Airtable mailing list
+      Environment:
+        Variables:
+          AIRTABLE_API_KEY: !Ref AIRTABLE_API_KEY
+          AIRTABLE_BASE_ID: !Ref AIRTABLE_BASE_ID
+          AIRTABLE_TABLE_ID: !Ref AIRTABLE_TABLE_ID
       Events:
         Api:
           Type: Api
           Properties:
-            Path: /{name}
-            Method: GET
+            Path: /mailing-list
+            Method: POST
 
 Outputs:
   WebEndpoint:
