@@ -1,0 +1,4 @@
+{
+  "name": "../templates/modules/serverless-airtable",
+  "archetype": "serverless-api"
+}
