@@ -1,6 +1,6 @@
 {
   "raw_source_code": {
-		"src/template/": "src/"
+		"src/": "src/"
 	},
 	"project_updates": {},
 	"package_manager": "npm"
